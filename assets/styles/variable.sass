@@ -1,0 +1,14 @@
+$font-title: 'Newzald Test', serif
+$font-body: 'Muli', sans-serif
+
+$ease: cubic-bezier(0.74,-0.01, 0.25, 1)
+$ease-two: cubic-bezier(0.93, 0.36, 0.18, 1.01)
+
+$color-rose: #D99E94
+
+
+// exclusive function to get a custom duration and improve the motio
+@function getDuration($n, $start:0.09)
+   @return (.32s+($n*$start));
+
+
