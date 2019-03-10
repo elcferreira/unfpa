@@ -1,6 +1,5 @@
 # unfpa
-
-> test unfpa
+  
 
 ## Build Setup
 
@@ -19,4 +18,8 @@ $ yarn start
 $ yarn run generate
 ```
 
-For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
+## Extensions
+To create the full experience what used:
+- Pixi.js - Create animation using WebGL
+- GSAP - Manipulate the DOM and WebGl
+- Nuxt.js - The Vue.js framework to create the server rendering
