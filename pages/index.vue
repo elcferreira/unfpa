@@ -66,10 +66,10 @@ export default {
       e.preventDefault()
       this.introMouseWheel(e)
 
-      if (e.deltaY < 0)
+      if (e.deltaY < 0 || e.detail < 0)
         this.getPosition('less')
 
-      if (e.deltaY > 0)
+      if (e.deltaY > 0 || e.detail > 0)
         this.getPosition()
 
       if (this.positionY > 3600 && !this.closeIntro)
@@ -113,6 +113,8 @@ export default {
       document.addEventListener("touchmove", this.touchMove, false)
       document.addEventListener("touchend", this.touchEnd, false)
       document.addEventListener("mousewheel", this.mouseWheel, false)
+      document.addEventListener("DOMMouseScroll", this.mouseWheel, false)
+
     }
   },
   destroyed() {
@@ -120,6 +122,7 @@ export default {
     document.removeEventListener("touchstart", this.touchStart, false)
     document.removeEventListener("touchmove", this.touchMove, false)
     document.removeEventListener("mousewheel", this.mouseWheel, false)
+    document.removeEventListener("DOMMouseScroll", this.mouseWheel, false)
   }
 }
 </script>
