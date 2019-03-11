@@ -7,8 +7,22 @@ import imageCanvas from '~/assets/scripts/imageCanvas.js'
 import { isMobile, getMobile } from '~/assets/scripts/utils/responsive.js'
 
 export default {
+  data() {
+    return {
+      started: false
+    }
+  },
   methods: {
-    getMobile
+    getMobile,
+    activeCanvas() {
+      if (window.innerHeight + 100 > this.$refs.figure.getBoundingClientRect().top && !this.started) {
+        if (process.browser && window && !!this.image.desktop && !!this.image.mobile) {
+          this.started = true
+          window.removeEventListener('scroll', this.activeCanvas, false)
+          imageCanvas(this.$refs.figure, this.image)
+        }
+      }
+    }
   },
   props: {
     image: {
@@ -16,8 +30,9 @@ export default {
     }
   },
   mounted() {
-    if (process.browser && window && !!this.image.desktop && !!this.image.mobile) {
-      imageCanvas(this.$refs.figure, this.image)
+    if (process.browser) {
+      this.activeCanvas()
+      window.addEventListener('scroll', this.activeCanvas, false)
     }
   }
 }

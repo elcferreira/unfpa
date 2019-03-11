@@ -39,19 +39,30 @@ export default {
           require('~/assets/images/liberia/mobile/liberia-head.jpg')
         ]
       },
-      changeOver: () => null
+      changeOver: () => null,
+      started: false
     }
   },
   methods: {
     mouseOver() {
       this.showEquipped = !this.showEquipped ? true : false
       this.changeOver(this.showEquipped)
+    },
+    activeCanvas() {
+      if (window.innerHeight + 100 > this.$refs.compare.getBoundingClientRect().top && !this.started) {
+        if (process.browser && window) {
+          this.started = true
+          window.removeEventListener('scroll', this.activeCanvas, false)
+          const { changeOver } = compare(this.$refs.compare, this.images)
+          this.changeOver = changeOver
+        }
+      }
     }
   },
   mounted () {
     if (process.browser && window) {
-      const { changeOver } = compare(this.$refs.compare, this.images)
-      this.changeOver = changeOver
+      this.activeCanvas()
+      window.addEventListener('scroll', this.activeCanvas, false)
     }
   }
 }

@@ -25,13 +25,26 @@ export default {
           require('~/assets/images/liberia/mobile/liberia-slide-3.jpg')
         ]
       },
-      nextSlide: () => null
+      nextSlide: () => null,
+      started: false
+    }
+  },
+  methods: {
+    activeCanvas() {
+      if (window.innerHeight + 100 > this.$refs.slide.getBoundingClientRect().top && !this.started) {
+        if (process.browser && window) {
+          this.started = true
+          window.removeEventListener('scroll', this.activeCanvas, false)
+          const { nextSlide } = slide(this.$refs.slide, this.images)
+          this.nextSlide = nextSlide
+        }
+      }
     }
   },
   mounted() {
     if (process.browser && window) {
-      const { nextSlide } = slide(this.$refs.slide, this.images)
-      this.nextSlide = nextSlide
+      this.activeCanvas()
+      window.addEventListener('scroll', this.activeCanvas, false)
     }
   }
 }
