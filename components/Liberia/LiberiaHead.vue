@@ -34,7 +34,7 @@ export default {
 .liberia-head
   $root: &
   width: 100%
-  height: 70vh
+  height: 90vh
   position: relative
   display: flex
   align-items: center
