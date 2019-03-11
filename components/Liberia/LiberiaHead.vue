@@ -1,7 +1,7 @@
 <template>
   <transition name="liberia-head" :duration="1500" appear>
     <section class="liberia-head">
-      <ImageCanvas class="liberia-head__figure js-rellax" data-rellax-speed="-1" :image="imageIntro" />
+      <ImageCanvas class="liberia-head__figure"  :image="imageIntro" />
       <aside class="liberia-head__aside js-rellax">
         <IconLiberia />
         <h1 class="liberia-head__title">Liberia</h1>

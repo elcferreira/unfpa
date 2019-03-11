@@ -1,6 +1,6 @@
 <template>
   <div class="liberia-slide">
-    <figure class="liberia-slide__container js-rellax" data-rellax-percentage="0.5" ref="slide" />
+    <figure class="liberia-slide__container "  ref="slide" />
     <button type="button" class="liberia-slide__next" @click="nextSlide">
       <span class="liberia-slide__text">Next image</span>
     </button>
