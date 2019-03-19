@@ -1,12 +1,14 @@
 <template>
   <transition name="liberia-head" :duration="1500" appear>
     <section class="liberia-head">
-      <ImageCanvas class="liberia-head__figure"  :image="imageIntro" />
-      <aside class="liberia-head__aside js-rellax">
+      <ImageCanvas class="liberia-head__figure luxy-el"  data-speed-y="8" :image="imageIntro" />
+      <aside class="liberia-head__aside luxy-el"  data-speed-y="10" data-offset="0">
         <IconLiberia />
         <h1 class="liberia-head__title">Liberia</h1>
       </aside>
-      <IconArrow class="js-rellax" data-rellax-speed="-3" />
+      <transition name="icon-arrow" :duration="800">
+        <IconArrow v-show="showArrow" class=""  />
+      </transition>
     </section>
   </transition>
 </template>
@@ -24,8 +26,23 @@ export default {
       imageIntro: {
         desktop: require('~/assets/images/liberia/liberia-head.jpg'),
         mobile: require('~/assets/images/liberia/mobile/liberia-head.jpg'),
-      }
+      },
+      showArrow: true
     }
+  },
+  methods: {
+    removeArrow() {
+      if (window.scrollY > 30 && this.showArrow)
+        this.showArrow = false
+      else if ( window.scrollY <= 30 && !this.showarrow)
+        this.showArrow = true
+    }
+  },
+  mounted() {
+    window.addEventListener('scroll', this.removeArrow)
+  },
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.removeArrow)
   }
 }
 </script>
@@ -41,7 +58,7 @@ export default {
   justify-content: center
   overflow: hidden
   @media(min-width: 48em)
-    height: 85vh
+    height: 88vh
 
   .icon-arrow
     position: absolute
@@ -50,6 +67,24 @@ export default {
     transform: translate(-50%, 0)
     @media(min-width: 48em)
       bottom: 64px
+
+    &-enter
+      &-active
+        transform: translate(-50%, -50px)
+        opacity: 0
+      &-to
+        transform: translate(-50%, 0px)
+        opacity: 1
+        transition: opacity getDuration(1) $ease, transform getDuration(1) $ease
+
+    &-leave
+      &-active
+        transform: translate(-50%, 0px)
+        opacity: 1
+      &-to
+        transform: translate(-50%, 50px)
+        opacity: 0
+        transition: opacity getDuration(1) $ease, transform getDuration(1) $ease
 
   &__aside
     position: relative

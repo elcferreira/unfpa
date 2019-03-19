@@ -1,5 +1,5 @@
 <template>
-  <main class="liberia">
+  <main class="liberia" id="luxy">
     <LiberiaHead />
     <LiberiaHistory />
     <LiberiaCompare />
@@ -34,13 +34,14 @@ export default {
     }
   },
   methods: {
+    Luxy: () => null,
     Rellax: () => null
   },
   mounted() {
     if (!isMobile) {
-      import(/* webpackChunkName: "rellax" */ 'rellax').then(e=> {
-        this.Rellax = e.default
-        this.parallax = new this.Rellax('.js-rellax')
+      import(/* webpackChunkName: "luxy" */ 'luxy.js').then(e=> {
+        this.Luxy = e.default
+        this.Luxy.init()
       })
     }
   }

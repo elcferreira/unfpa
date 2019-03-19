@@ -3,7 +3,7 @@
     <section class="liberia-history">
       <div class="liberia-history__row">
         <aside class="liberia-history__aside" >
-          <div class="js-rellax" data-rellax-percentage="0.5" data-rellax-speed="-3">
+          <div class="js-rellax luxy-el" data-speed-y="10" data-offset="-200">
             <h2 class="liberia-history__title-2 " >I can work to<br> save my people.</h2>
             <span class="liberia-history__description " >Yamah, a midwife and supervisor of a maternal health clinic</span>
           </div>
@@ -11,12 +11,12 @@
         <ImageCanvas class="liberia-history__image-one" :image="imageOne" />
       </div>
       <div class="liberia-history__full" >
-        <div class="liberia-history__full-line js-rellax" data-rellax-percentage="0.5" data-rellax-speed="-1" />
+        <div class="liberia-history__full-line " />
         <ImageCanvas class="liberia-history__full-image "  :image="imageTwo" />
-        <h2 class="liberia-history__title-3 js-rellax" data-rellax-percentage="0.5" data-rellax-speed="-2">Yamah risked her own life to deliver babies during the Ebola outbreak.</h2>
+        <h2 class="liberia-history__title-3 luxy-el" data-speed-y="-4" data-offset="180">Yamah risked her own life to deliver babies during the Ebola outbreak.</h2>
       </div>
       <div class="liberia-history__slide">
-        <h2 class="liberia-history__title-3 " >The epidemic devastated Liberia’s fragile healthcare system. Maternal deaths surged. But <span class="liberia-history__title-3--rose">even here</span>, midwives like Yamah persevered in tending to mothers and their newborns.</h2>
+        <h2 class="liberia-history__title-3 luxy-el" data-speed-y="-4" data-offset="200">The epidemic devastated Liberia’s fragile healthcare system. Maternal deaths surged. But <span class="liberia-history__title-3--rose">even here</span>, midwives like Yamah persevered in tending to mothers and their newborns.</h2>
         <LiberiaSlide />
       </div>
       <LiberiaVideo class="liberia-history__video" />

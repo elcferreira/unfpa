@@ -14,8 +14,8 @@
   },
   "dependencies": {
     "cross-env": "^5.2.0",
+    "luxy.js": "^0.1.0",
     "nuxt": "^2.4.0",
-    "rellax": "^1.8.0",
     "pixi.js": "^4.8.6"
   },
   "devDependencies": {
