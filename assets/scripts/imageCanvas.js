@@ -54,7 +54,7 @@ const imageCanvas = (elm, { desktop, mobile }) => {
   const displacementSprite = new PIXI.Sprite.fromImage(displacementSrc)
   const displacementFilter = new PIXI.filters.DisplacementFilter( displacementSprite )
 
-  app.stage.interactive = true
+  app.stage.interactive = false
 
   displacementSprite.texture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT
   app.stage.filters = [ displacementFilter ]

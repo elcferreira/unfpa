@@ -15,7 +15,7 @@ export default {
   methods: {
     getMobile,
     activeCanvas() {
-      if (window.innerHeight + 100 > this.$refs.figure.getBoundingClientRect().top && !this.started) {
+      if (window.innerHeight + 300 > this.$refs.figure.getBoundingClientRect().top && !this.started) {
         if (process.browser && window && !!this.image.desktop && !!this.image.mobile) {
           this.started = true
           window.removeEventListener('scroll', this.activeCanvas, false)
@@ -32,7 +32,9 @@ export default {
   mounted() {
     if (process.browser) {
       this.activeCanvas()
-      window.addEventListener('scroll', this.activeCanvas, false)
+      this.$root.$on('scrollbar', this.activeCanvas)
+      // window.scrollbar.addListener(this.activeCanvas)
+      // window.addEventListener('scroll', this.activeCanvas, false)
     }
   }
 }

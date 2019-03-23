@@ -1,5 +1,5 @@
 <template>
-  <main class="liberia" id="luxy">
+  <main class="liberia" ref="smooth">
     <LiberiaHead />
     <LiberiaHistory />
     <LiberiaCompare />
@@ -13,6 +13,10 @@ import LiberiaHistory from '~/components/Liberia/LiberiaHistory.vue'
 import LiberiaCompare from '~/components/Liberia/LiberiaCompare.vue'
 import LiberiaRelated from '~/components/Liberia/LiberiaRelated.vue'
 import { isMobile } from '~/assets/scripts/utils/responsive.js'
+
+if (process.browser)
+  window.Scrollbar  = require('smooth-scrollbar').default
+// import Scrollbar from 'smooth-scrollbar'
 
 export default {
   transition: {
@@ -33,22 +37,35 @@ export default {
       parallax: null
     }
   },
-  methods: {
-    Luxy: () => null,
-    Rellax: () => null
-  },
   mounted() {
-    if (!isMobile) {
-      import(/* webpackChunkName: "luxy" */ 'luxy.js').then(e=> {
-        this.Luxy = e.default
-        this.Luxy.init()
+    if (process.browser) {
+      const scrollbarEmmit = () => this.$root.$emit('scrollbar')
+
+      import(/* webpackChunkName: "smooth" */ 'smooth-scrollbar').then(e=> {
+        const Scrollbar = e.default
+        window.scrollbar = Scrollbar.init(document.body, {
+          alwaysShowTracks: false
+        })
+
+        window.scrollbar.addListener( scrollbarEmmit )
       })
     }
+  },
+  destroy() {
+    this.Scrollbar.destroy(document.body)
   }
 }
 </script>
 
 <style lang="sass">
+body
+  height: 100vh
+
+.scroll-content
+  will-change: transform
+  transform-style: preserve-3d
+  backface-visibility: hidden
+
 .js-rellax
   will-change: transform
   backface-visibility: hidden

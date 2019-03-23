@@ -31,10 +31,10 @@ export default {
   },
   methods: {
     activeCanvas() {
-      if (window.innerHeight + 100 > this.$refs.slide.getBoundingClientRect().top && !this.started) {
+      if (window.innerHeight + 200 > this.$refs.slide.getBoundingClientRect().top && !this.started) {
         if (process.browser && window) {
           this.started = true
-          window.removeEventListener('scroll', this.activeCanvas, false)
+          // window.removeEventListener('scroll', this.activeCanvas, false)
           const { nextSlide } = slide(this.$refs.slide, this.images)
           this.nextSlide = nextSlide
         }
@@ -44,7 +44,8 @@ export default {
   mounted() {
     if (process.browser && window) {
       this.activeCanvas()
-      window.addEventListener('scroll', this.activeCanvas, false)
+      this.$root.$on('scrollbar', this.activeCanvas)
+      // window.addEventListener('scroll', this.activeCanvas, false)
     }
   }
 }

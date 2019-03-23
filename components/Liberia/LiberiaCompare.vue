@@ -49,10 +49,10 @@ export default {
       this.changeOver(this.showEquipped)
     },
     activeCanvas() {
-      if (window.innerHeight + 100 > this.$refs.compare.getBoundingClientRect().top && !this.started) {
+      if (window.innerHeight + 200 > this.$refs.compare.getBoundingClientRect().top && !this.started) {
         if (process.browser && window) {
           this.started = true
-          window.removeEventListener('scroll', this.activeCanvas, false)
+          // window.removeEventListener('scroll', this.activeCanvas, false)
           const { changeOver } = compare(this.$refs.compare, this.images)
           this.changeOver = changeOver
         }
@@ -62,7 +62,8 @@ export default {
   mounted () {
     if (process.browser && window) {
       this.activeCanvas()
-      window.addEventListener('scroll', this.activeCanvas, false)
+      this.$root.$on('scrollbar', this.activeCanvas)
+      // window.addEventListener('scroll', this.activeCanvas, false)
     }
   }
 }
