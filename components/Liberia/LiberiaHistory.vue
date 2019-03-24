@@ -16,7 +16,7 @@
           id="history"
           :image="imageOne"
           :class="{'animation-image--show': imageOneVisible}"
-          v-observe-visibility="{callback: status => imageOneVisible = status, once: true, intersection: { threshold: 0.8 }}"
+          v-observe-visibility="{callback: status => imageOneVisible = status, once: true, intersection: { threshold: 0.5 }}"
           />
       </div>
       <div class="liberia-history__full" >
@@ -25,12 +25,18 @@
           class="liberia-history__full-image animation-image"
           :image="imageTwo"
           :class="{'animation-image--show': imageFullVisible}"
-          v-observe-visibility="{callback: status => imageFullVisible = status, once: true, intersection: { threshold: 0.8 }}"
+          v-observe-visibility="{callback: status => imageFullVisible = status, once: true, intersection: { threshold: 0.5 }}"
           />
         <h2 class="liberia-history__title-3 luxy-el" data-speed-y="-4" data-offset="180">Yamah risked her own life to deliver babies during the Ebola outbreak.</h2>
       </div>
       <div class="liberia-history__slide">
-        <h2 class="liberia-history__title-3 luxy-el" data-speed-y="-4" data-offset="200">The epidemic devastated Liberia’s fragile healthcare system. Maternal deaths surged. But <span class="liberia-history__title-3--rose">even here</span>, midwives like Yamah persevered in tending to mothers and their newborns.</h2>
+        <h2
+          class="liberia-history__title-3 animation-y-reset"
+          :class="{'animation-y-reset--show': titleTresVisible}"
+          v-observe-visibility="{callback: status => titleTresVisible = status, once: true, intersection: { threshold: 0.4 }}"
+        >
+          The epidemic devastated Liberia’s fragile healthcare system. Maternal deaths surged. But <span class="liberia-history__title-3--rose">even here</span>, midwives like Yamah persevered in tending to mothers and their newborns.
+        </h2>
         <LiberiaSlide
           class="animation-image"
           :class="{'animation-image--show': slideVisible}"
@@ -60,6 +66,7 @@ export default {
       imageFullVisible: false,
       slideVisible: false,
       videoVisible: false,
+      titleTresVisible: false,
       imageOne: {
         desktop: require('~/assets/images/liberia/liberia-i-can-work.jpg'),
         mobile: require('~/assets/images/liberia/mobile/liberia-i-can-work.jpg')
@@ -244,6 +251,11 @@ $delay: .32s
       transform: translateX(100%)
 
 .animation-y-reset
-  transform: translateY(50px)
+  transform: translateY(60px)
   opacity: 0
+  &--show
+    transform: translateY(0px)
+    opacity: 1
+    transition: getDuration(2) $ease
+    will-change: transform
 </style>

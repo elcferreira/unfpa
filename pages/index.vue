@@ -24,7 +24,7 @@ export default {
   transition: {
     name: 'intro',
     mode: 'out-in',
-    duration: 700
+    duration: 900
   },
   components: { IntroCredits, IntroTimer, IntroStepTwo },
   head () {

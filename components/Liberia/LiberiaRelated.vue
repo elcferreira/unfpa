@@ -1,8 +1,6 @@
 <template>
   <section
-    class="liberia-related animation-image"
-    :class="{'animation-image--show': relatedVisible}"
-    v-observe-visibility="{callback: status => relatedVisible = status, once: true, intersection: { threshold: 0.3 }}"
+    class="liberia-related"
     >
     <hgroup class="liberia-related__intro">
       <i class="liberia-related__circle" />
@@ -12,7 +10,11 @@
       <h4 class="liberia-related__title">safe birth<br> starts here</h4>
     </hgroup>
     <span class="liberia-related__flag">See other stories</span>
-    <ul class="liberia-related__list">
+    <ul
+      class="liberia-related__list  animation-image"
+      :class="{'animation-image--show': relatedVisible}"
+      v-observe-visibility="{callback: status => relatedVisible = status, once: true, intersection: { threshold: 0.3 }}"
+    >
       <li v-for="item in menu" class="liberia-related__item">
         <nuxt-link :to="item.link" class="liberia-related__link" :title="item.title">
           <ImageCanvas class="liberia-related__image" :image="item.image" />
@@ -56,7 +58,6 @@ export default {
 
 <style lang="sass">
 .liberia-related
-  position: relative
   $root : &
   &__intro
     padding: 250px 0
@@ -111,6 +112,7 @@ export default {
       background-color: #979797
 
   &__list
+    position: relative
     @media(min-width: 48em)
       display: flex
 

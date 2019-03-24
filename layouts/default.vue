@@ -67,5 +67,5 @@ h1, h2, h3, h4
       &:before
         transform: translateY(100%)
         will-change: transform
-        transition: getDuration(1) $ease
+        transition: getDuration(3) $ease
 </style>

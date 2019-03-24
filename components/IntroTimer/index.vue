@@ -143,9 +143,11 @@ export default {
     &-to
       #{$root}
         &__title
-          transform: translate3d(-50%, -65%, 0) scaleY(1)
           opacity: 1
           transition: transform getDuration(2) $ease .2s, opacity getDuration(2) $ease .2s
+          transform: translate3d(-50%, -75%, 0) scale(1)
+          @media(min-height: 37.25em)
+            transform: translate3d(-50%, -65%, 0) scale(1)
         &__icon
           transform: scale(1)
           transition: transform getDuration(1.5) $ease .2s
