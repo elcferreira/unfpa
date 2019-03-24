@@ -207,6 +207,8 @@ $delay: .32s
   &__title-3
     font-size: 30px
     line-height: 1.4em
+    position: relative
+    z-index: 2
     @media(min-width: 48em)
       font-size: 50px
     &--rose

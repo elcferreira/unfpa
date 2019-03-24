@@ -58,12 +58,14 @@ export default {
     transform: translate(-50%, 0)
     cursor: pointer
     animation: arrowHover 3s $ease 0s infinite
+    z-index: 3
     @media(min-width: 48em)
       bottom: 64px
 
   &__aside
     position: relative
     text-align: center
+    z-index: 3
 
   &__title
     color: white
