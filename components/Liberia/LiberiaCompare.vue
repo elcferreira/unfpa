@@ -1,5 +1,9 @@
 <template>
-  <section class="liberia-hover">
+  <section
+    class="liberia-hover animation-image"
+    :class="{'animation-image--show': compareVisible}"
+    v-observe-visibility="{callback: status => compareVisible = status, once: true, intersection: { threshold: 0.3 }}"
+    >
     <figure ref="compare" />
     <aside class="liberia-hover__aside js-rellax" data-rellax-percentage="0.5">
       <h3 class="liberia-hover__title-4">With support from Johnson Johnson, UNFPA is working to equip midwives with the skills they need to ensure safe birth.</h3>
@@ -29,6 +33,7 @@ export default {
   data() {
     return {
       showEquipped: true,
+      compareVisible: false,
       images: {
         desktop: [
           require('~/assets/images/liberia/liberia-hover-1.jpg'),
@@ -65,6 +70,9 @@ export default {
       this.$root.$on('scrollbar', this.activeCanvas)
       // window.addEventListener('scroll', this.activeCanvas, false)
     }
+  },
+  destroyed() {
+    this.$root.$off('scrollbar', this.activeCanvas)
   }
 }
 </script>

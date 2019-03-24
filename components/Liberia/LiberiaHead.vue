@@ -1,14 +1,12 @@
 <template>
-  <transition name="liberia-head" :duration="1500" appear>
+  <transition name="liberia-head" :duration="15000" appear>
     <section class="liberia-head">
       <ImageCanvas class="liberia-head__figure luxy-el"  data-speed-y="8" :image="imageIntro" />
       <aside class="liberia-head__aside luxy-el"  data-speed-y="10" data-offset="0">
         <IconLiberia />
         <h1 class="liberia-head__title">Liberia</h1>
       </aside>
-      <transition name="icon-arrow" :duration="800">
-        <IconArrow v-show="showArrow" class=""  />
-      </transition>
+      <IconArrow  tabindex="0" @click="scrollToHistory"  />
     </section>
   </transition>
 </template>
@@ -26,23 +24,13 @@ export default {
       imageIntro: {
         desktop: require('~/assets/images/liberia/liberia-head.jpg'),
         mobile: require('~/assets/images/liberia/mobile/liberia-head.jpg'),
-      },
-      showArrow: true
+      }
     }
   },
   methods: {
-    removeArrow() {
-      if (window.scrollY > 30 && this.showArrow)
-        this.showArrow = false
-      else if ( window.scrollY <= 30 && !this.showarrow)
-        this.showArrow = true
+    scrollToHistory() {
+      window.scrollbar.scrollIntoView(document.querySelector('#history', { duration: 1000 }))
     }
-  },
-  mounted() {
-    window.addEventListener('scroll', this.removeArrow)
-  },
-  beforeDestroy() {
-    window.removeEventListener('scroll', this.removeArrow)
   }
 }
 </script>
@@ -51,40 +39,27 @@ export default {
 .liberia-head
   $root: &
   width: 100%
-  height: 90vh
+  height: 100vh
   position: relative
   display: flex
   align-items: center
   justify-content: center
   overflow: hidden
-  @media(min-width: 48em)
-    height: 88vh
+
+  .icon-liberia
+    transition: getDuration(1) $ease
+    &:hover, &:focus
+      transform: scale(1.2)
 
   .icon-arrow
     position: absolute
     left: 50%
     bottom: 30px
     transform: translate(-50%, 0)
+    cursor: pointer
+    animation: arrowHover 3s $ease 0s infinite
     @media(min-width: 48em)
       bottom: 64px
-
-    &-enter
-      &-active
-        transform: translate(-50%, -50px)
-        opacity: 0
-      &-to
-        transform: translate(-50%, 0px)
-        opacity: 1
-        transition: opacity getDuration(1) $ease, transform getDuration(1) $ease
-
-    &-leave
-      &-active
-        transform: translate(-50%, 0px)
-        opacity: 1
-      &-to
-        transform: translate(-50%, 50px)
-        opacity: 0
-        transition: opacity getDuration(1) $ease, transform getDuration(1) $ease
 
   &__aside
     position: relative
@@ -108,15 +83,45 @@ export default {
       bottom: 2px
 
   &-enter
-    opacity: 0
+    &-active
+      overflow: hidden
+      &:before
+        content: ''
+        width: 100%
+        height: 100%
+        position: absolute
+        top: 0
+        left: 0
+        background-color: white
+        transform: translateY(0)
+        z-index: 10
+      #{$root}
+        &__title
+          transform: translateY(50px)
+          opacity: 0
     &-to
-      opacity: 1
-      transition: opacity getDuration(2) $ease
-      will-change: opacity
-      backface-visibility: hidden
+      &:before
+        transform: translateY(100%)
+        transition: getDuration(4) $ease
+      #{$root}
+        &__title
+          transform: translateY(0px)
+          opacity: 1
+        transition: getDuration(2) $ease .7s
 
   &-leave
     &-active
     &-to
+
+@keyframes arrowHover
+  0%, 100%
+    transform: translate(-50%, -60px)
+    opacity: 0
+  20%, 79%
+    transform: translate(-50%, 0px)
+    opacity: 1
+  99%
+    opacity: 0
+    transform: translate(-50%, 30px)
 
 </style>

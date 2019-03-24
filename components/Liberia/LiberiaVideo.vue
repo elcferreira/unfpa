@@ -65,6 +65,9 @@ export default {
     z-index: 2
     cursor: pointer
     transform: translate3d(-50%, -50%, 0)
+    transition: getDuration(1) $ease
+    &:hover, &:focus
+      transform: translate3d(-50%, -50%, 0) scale(1.3)
 
   &-enter
     &-active

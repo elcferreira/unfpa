@@ -1,25 +1,47 @@
 <template>
   <transition name="liberia-history" :duration="1500" appear>
-    <section class="liberia-history">
+    <section class="liberia-history" >
       <div class="liberia-history__row">
         <aside class="liberia-history__aside" >
-          <div class="js-rellax luxy-el" data-speed-y="10" data-offset="-200">
-            <h2 class="liberia-history__title-2 " >I can work to<br> save my people.</h2>
-            <span class="liberia-history__description " >Yamah, a midwife and supervisor of a maternal health clinic</span>
+          <div
+            v-observe-visibility="{callback: status => wrapperVisible = status, once: true, intersection: { threshold: 0.5 }}"
+            class="liberia-history__wrapper"
+            :class="{'liberia-history__wrapper--show': wrapperVisible}">
+            <h2 class="liberia-history__title-2 animation-y-reset" >I can work to<br> save my people.</h2>
+            <span class="liberia-history__description animation-y-reset" >Yamah, a midwife and supervisor of a maternal health clinic</span>
           </div>
         </aside>
-        <ImageCanvas class="liberia-history__image-one" :image="imageOne" />
+        <ImageCanvas
+          class="liberia-history__image-one animation-image"
+          id="history"
+          :image="imageOne"
+          :class="{'animation-image--show': imageOneVisible}"
+          v-observe-visibility="{callback: status => imageOneVisible = status, once: true, intersection: { threshold: 0.8 }}"
+          />
       </div>
       <div class="liberia-history__full" >
         <div class="liberia-history__full-line " />
-        <ImageCanvas class="liberia-history__full-image "  :image="imageTwo" />
+        <ImageCanvas
+          class="liberia-history__full-image animation-image"
+          :image="imageTwo"
+          :class="{'animation-image--show': imageFullVisible}"
+          v-observe-visibility="{callback: status => imageFullVisible = status, once: true, intersection: { threshold: 0.8 }}"
+          />
         <h2 class="liberia-history__title-3 luxy-el" data-speed-y="-4" data-offset="180">Yamah risked her own life to deliver babies during the Ebola outbreak.</h2>
       </div>
       <div class="liberia-history__slide">
         <h2 class="liberia-history__title-3 luxy-el" data-speed-y="-4" data-offset="200">The epidemic devastated Liberia’s fragile healthcare system. Maternal deaths surged. But <span class="liberia-history__title-3--rose">even here</span>, midwives like Yamah persevered in tending to mothers and their newborns.</h2>
-        <LiberiaSlide />
+        <LiberiaSlide
+          class="animation-image"
+          :class="{'animation-image--show': slideVisible}"
+          v-observe-visibility="{callback: status => slideVisible = status, once: true, intersection: { threshold: 0.5 }}"
+        />
       </div>
-      <LiberiaVideo class="liberia-history__video" />
+      <LiberiaVideo
+        class="liberia-history__video animation-image"
+        :class="{'animation-image--show': videoVisible}"
+        v-observe-visibility="{callback: status => videoVisible = status, once: true, intersection: { threshold: 0.3 }}"
+      />
     </section>
   </transition>
 </template>
@@ -33,6 +55,11 @@ export default {
   components: { ImageCanvas, LiberiaVideo, LiberiaSlide },
   data() {
     return {
+      wrapperVisible: false,
+      imageOneVisible: false,
+      imageFullVisible: false,
+      slideVisible: false,
+      videoVisible: false,
       imageOne: {
         desktop: require('~/assets/images/liberia/liberia-i-can-work.jpg'),
         mobile: require('~/assets/images/liberia/mobile/liberia-i-can-work.jpg')
@@ -42,18 +69,26 @@ export default {
         mobile: require('~/assets/images/liberia/mobile/liberia-yamah-risked.jpg')
       }
     }
+  },
+  methods: {
+    visibilityChanged(isVisible, entry) {
+      console.log(isVisible, entry)
+    }
   }
 }
 </script>
 
 <style lang="sass">
+$delay: .32s
+
 .liberia-history
   $root: &
   &__row
     position: relative
     padding: 80px 20px 600px
     @media(min-width: 48em)
-      padding: 600px 40px 534px
+      padding: 624px 40px 534px
+
 
   &__image-one
     width: 80%
@@ -63,12 +98,18 @@ export default {
     bottom: 250px
     right: 0
     left: auto
+    overflow: hidden
     @media(min-width: 48em)
       height: 740px
       width: calc(50% + 255px)
       bottom: auto
       top: 50%
       transform: translateY(-50%)
+
+
+    &--show
+      &:before
+
 
   &__aside
     position: relative
@@ -83,7 +124,7 @@ export default {
     position: relative
     padding: 30vh 0
     @media(min-width: 48em)
-      padding: 341px 0
+      padding: 330px 0
 
     &-line
       z-index: 3
@@ -139,11 +180,21 @@ export default {
           padding-left: calc(50% - 160px)
           padding-right: calc(50% - 610px)
 
+  &__wrapper
+    visibility: hidden
+    &--show
+      visibility: visible
+
+      #{$root}
+        &__title-2, &__description
+          transform: translateY(0)
+          opacity: 1
 
   &__title-2
     font-size: 40px
     letter-spacing: -.01em
     line-height: 1em
+    transition: getDuration(1) $ease $delay
     @media(min-width: 48em)
       font-size: 80px
 
@@ -160,7 +211,10 @@ export default {
     max-width: 230px
     display: block
     padding: 20px 0 0 0
+    transition: getDuration(2) $ease $delay
 
+  &__video
+    position: relative
 
   &-enter
     opacity: 0
@@ -169,4 +223,27 @@ export default {
       transition: opacity getDuration(2) $ease
       will-change: opacity
       backface-visibility: hidden
+
+.animation-image
+  overflow: hidden
+  &:before
+    content: ''
+    width: 100%
+    height: 100%
+    background-color: white
+    top: 0
+    left: 0
+    position: absolute
+    transition: getDuration(9) $ease
+    z-index: 10
+    will-change: transform
+    backface-visibility: hidden
+    transform-style: preserve-3d
+  &--show
+    &:before
+      transform: translateX(100%)
+
+.animation-y-reset
+  transform: translateY(50px)
+  opacity: 0
 </style>

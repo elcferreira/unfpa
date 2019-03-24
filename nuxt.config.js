@@ -38,6 +38,10 @@ module.exports = {
     {
       src: '~/plugins/pixi',
       ssr: false
+    },
+    {
+      src: '~/plugins/observe',
+      ssr: false
     }
   ],
 

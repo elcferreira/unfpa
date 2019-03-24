@@ -1,5 +1,9 @@
 <template>
-  <section class="liberia-related">
+  <section
+    class="liberia-related animation-image"
+    :class="{'animation-image--show': relatedVisible}"
+    v-observe-visibility="{callback: status => relatedVisible = status, once: true, intersection: { threshold: 0.3 }}"
+    >
     <hgroup class="liberia-related__intro">
       <i class="liberia-related__circle" />
       <i class="liberia-related__circle" />
@@ -26,6 +30,7 @@ export default {
   components: { ImageCanvas },
   data() {
     return {
+      relatedVisible: false,
       menu: [
         {
           link: '/',
@@ -51,6 +56,7 @@ export default {
 
 <style lang="sass">
 .liberia-related
+  position: relative
   $root : &
   &__intro
     padding: 250px 0

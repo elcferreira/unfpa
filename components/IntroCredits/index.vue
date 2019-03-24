@@ -17,12 +17,15 @@ export default {
 <style lang="sass">
 .intro-credits
   position: fixed
-  bottom: 5%
+  bottom: 20px
   width: 100%
   z-index: 2
   display: block
   text-align: center
   padding: 0 15px
+
+  @media(min-width: 30em)
+    bottom: 50px
 
   &__text
     color: rgba(white, .35)

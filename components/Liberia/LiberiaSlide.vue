@@ -47,6 +47,9 @@ export default {
       this.$root.$on('scrollbar', this.activeCanvas)
       // window.addEventListener('scroll', this.activeCanvas, false)
     }
+  },
+  destroyed() {
+    this.$root.$off('scrollbar', this.activeCanvas)
   }
 }
 </script>
@@ -75,6 +78,9 @@ export default {
     background-color: transparent
     padding: 70px 10px 10px
     cursor: pointer
+
+    @media(min-width: 40em)
+      bottom: 143px
 
     &:before, &:after
       content: ''

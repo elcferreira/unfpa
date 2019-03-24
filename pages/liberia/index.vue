@@ -14,14 +14,12 @@ import LiberiaCompare from '~/components/Liberia/LiberiaCompare.vue'
 import LiberiaRelated from '~/components/Liberia/LiberiaRelated.vue'
 import { isMobile } from '~/assets/scripts/utils/responsive.js'
 
-if (process.browser)
-  window.Scrollbar  = require('smooth-scrollbar').default
-// import Scrollbar from 'smooth-scrollbar'
-
 export default {
   transition: {
     name: 'intro',
-    mode: 'in-out'
+    mode: 'out-in',
+    duration: 700,
+    appear: true
   },
   components: { LiberiaHead, LiberiaHistory, LiberiaCompare, LiberiaRelated },
   head () {
@@ -32,10 +30,8 @@ export default {
       ]
     }
   },
-  data() {
-    return {
-      parallax: null
-    }
+  methods: {
+    Scrollbar: () => null
   },
   mounted() {
     if (process.browser) {
@@ -43,6 +39,7 @@ export default {
 
       import(/* webpackChunkName: "smooth" */ 'smooth-scrollbar').then(e=> {
         const Scrollbar = e.default
+        this.Scrollbar = Scrollbar
         window.scrollbar = Scrollbar.init(document.body, {
           alwaysShowTracks: false
         })
@@ -51,8 +48,8 @@ export default {
       })
     }
   },
-  destroy() {
-    this.Scrollbar.destroy(document.body)
+  destroyed() {
+    window.scrollbar.destroy()
   }
 }
 </script>
@@ -66,8 +63,4 @@ body
   transform-style: preserve-3d
   backface-visibility: hidden
 
-.js-rellax
-  will-change: transform
-  backface-visibility: hidden
-  transform-style: preserve-3d
 </style>

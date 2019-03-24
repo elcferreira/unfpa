@@ -23,7 +23,8 @@ import { init } from '~/assets/scripts/intro.js'
 export default {
   transition: {
     name: 'intro',
-    mode: 'in-out'
+    mode: 'out-in',
+    duration: 700
   },
   components: { IntroCredits, IntroTimer, IntroStepTwo },
   head () {
@@ -54,11 +55,11 @@ export default {
       switch (status) {
         case 'less':
           if (this.positionY >= 1900)
-            this.positionY -= 17 * 1.8
+            this.positionY -= 17 * 3.8
           break
         default:
           if (this.positionY <= 3600)
-            this.positionY += 17 * 1.8
+            this.positionY += 17 * 3.8
           break
       }
     },
@@ -148,19 +149,6 @@ export default {
     height: 34px
     z-index: 3
 
-  &-leave
-    &-active
-      opacity: 1
-      transition: opacity getDuration(1) $ease
-    &-to
-      opacity: 0
-
-  &-enter
-    &-active
-      opacity: 0
-    &-to
-      opacity: 1
-      transition: opacity getDuration(1) $ease
 
 canvas
   position: absolute

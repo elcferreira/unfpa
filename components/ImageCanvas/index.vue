@@ -15,11 +15,13 @@ export default {
   methods: {
     getMobile,
     activeCanvas() {
-      if (window.innerHeight + 300 > this.$refs.figure.getBoundingClientRect().top && !this.started) {
-        if (process.browser && window && !!this.image.desktop && !!this.image.mobile) {
-          this.started = true
-          window.removeEventListener('scroll', this.activeCanvas, false)
-          imageCanvas(this.$refs.figure, this.image)
+      if (this.$refs.figure) {
+        if (!this.started && window.innerHeight + 300 > this.$refs.figure.getBoundingClientRect().top ) {
+          if (process.browser && window && !!this.image.desktop && !!this.image.mobile) {
+            this.started = true
+            window.removeEventListener('scroll', this.activeCanvas, false)
+            imageCanvas(this.$refs.figure, this.image)
+          }
         }
       }
     }
@@ -33,9 +35,10 @@ export default {
     if (process.browser) {
       this.activeCanvas()
       this.$root.$on('scrollbar', this.activeCanvas)
-      // window.scrollbar.addListener(this.activeCanvas)
-      // window.addEventListener('scroll', this.activeCanvas, false)
     }
+  },
+  destroyed() {
+    this.$root.$off('scrollbar', this.activeCanvas)
   }
 }
 </script>
@@ -49,6 +52,6 @@ export default {
   left: 0
   background-size: cover
   background-position: center center
-  background-color: black
+  background-color: white
   z-index: 0
 </style>

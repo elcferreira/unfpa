@@ -14,8 +14,8 @@
         <path fill="none" stroke="url(#SVGID_1_)" stroke-dasharray="1800" :stroke-dashoffset="dashoffset" stroke-width="7" d="M268,8C124.4,8,8,124.4,8,268s116.4,260,260,260s260-116.4,260-260
           S411.6,8,268,8"/>
       </svg>
+      <span class="step-two__timer">{{ minutes + ':' + seconds }}</span>
     </figure>
-    <span class="step-two__timer">{{ minutes + ':' + seconds }}</span>
     <h1 class="step-two__title">That’s 830 women every day.</h1>
     <nuxt-link to="/liberia" class="step-two__button">Next</nuxt-link>
   </div>
@@ -59,7 +59,7 @@ export default {
     TweenMax.to(this.$refs.figure, 1, {
       width: 80,
       height: 80,
-      top: 56,
+      top: 80,
       ease: Power3.easeInOut
     })
     this.startTimer(), 500
@@ -80,15 +80,19 @@ export default {
     width: 100%
     position: fixed
     font-size: 40px
+    padding: 0 25px
     top: 50%
     text-align: center
     transform: translate3d(0, -50%, 0)
     @media (min-width: 48em)
-      font-size: 6vw
+      font-size: 50px
+    @media (min-width: 60em)
+      font-size: 80px
 
   &__button
     font-family: $font-title
     font-size: 40px
+    line-height: 50px
     font-weight: 600
     color: white
     position: fixed
@@ -126,10 +130,10 @@ export default {
   &__timer
     font-size: 14px
     color: white
-    position: fixed
-    top: 48px
+    position: absolute
+    top: 50%
     left: 50%
-    transform: translateX(-50%)
+    transform: translate(-50%, -50%)
 
   &-enter
     &-active

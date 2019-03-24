@@ -64,8 +64,10 @@ export default {
     text-align: center
     left: 50%
     top: 50%
-    transform: translate3d(-50%, -65%, 0) scale(1)
+    transform: translate3d(-50%, -75%, 0) scale(1)
     font-size: 50px
+    @media(min-height: 37.25em)
+      transform: translate3d(-50%, -65%, 0) scale(1)
 
   &__cursor
     position: absolute
@@ -86,7 +88,7 @@ export default {
       animation: mouseScroll 1.4s $ease 0s infinite
 
   &__loader
-    // transition: .3s $ease
+    //transition: .3s $ease
 
   &__aside
     &-leave

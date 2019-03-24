@@ -48,8 +48,9 @@ export const init = (elm, ZoomBlurFilter) => {
     }
     scale += 0.06
     // backgroundSprite.scale.set(scale)
-    TweenMax.to(backgroundSprite, 1.4, { alpha: 1 })
-    TweenMax.to(backgroundSprite.scale, 1, {x: scale, y: scale})
+    TweenMax.to(backgroundSprite, 2, { alpha: 1 })
+    backgroundSprite.scale.set(scale)
+    // TweenMax.to(backgroundSprite.scale, 1, {x: scale, y: scale})
   })
 
   // -------------------
