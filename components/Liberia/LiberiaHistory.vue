@@ -1,6 +1,6 @@
 <template>
   <transition name="liberia-history" :duration="1500" appear>
-    <section class="liberia-history" >
+    <section class="liberia-history" id="history" >
       <div class="liberia-history__row">
         <aside class="liberia-history__aside" >
           <div
@@ -13,7 +13,6 @@
         </aside>
         <ImageCanvas
           class="liberia-history__image-one animation-image"
-          id="history"
           :image="imageOne"
           :class="{'animation-image--show': imageOneVisible}"
           v-observe-visibility="{callback: status => imageOneVisible = status, once: true, intersection: { threshold: 0.5 }}"
